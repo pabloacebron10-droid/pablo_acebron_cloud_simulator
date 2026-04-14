@@ -2,10 +2,12 @@ package simulacion;
 
 public class FogNode {
     private final CloudServer CLOUDSERVER;
-    private int alertCount;
+    private int alertCount = 0;
+    private int contador;
 
-    public FogNode (CloudServer cloudServer){
+    public FogNode (CloudServer cloudServer, int contador){
         this.CLOUDSERVER = cloudServer;
+        this.contador = contador;
     }
 
     public void processData(SensorData data){
@@ -24,6 +26,10 @@ public class FogNode {
 
     public int getAlertCount(){
         return alertCount;
+    }
+
+    public int getContador() {
+        return contador;
     }
 
 }
