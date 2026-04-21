@@ -7,10 +7,14 @@ public class CloudServer {
 
     private final List<SensorData> dataList = new ArrayList<>();
 
-    public void saveData(SensorData data){
-        dataList.add(data);
-        System.out.println("[CLOUD] Dato guardado "+ data);
+    public void saveData( List<SensorData> dataListFog){
+       for ( SensorData elemento: dataListFog) {
+        dataList.add(elemento);
+       }
+       System.out.println("[CLOUD] Datos guardados: "+ dataList);
     }
+        
+    
 
     public void showData(){
         double sum = 0;

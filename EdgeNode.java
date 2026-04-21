@@ -22,8 +22,9 @@ public class EdgeNode {
                 System.out.println();
             }
             else
-                break; 
+                break;
         }
+        fogNode.finish();
     }
 
     public int getcontadorEdge() {

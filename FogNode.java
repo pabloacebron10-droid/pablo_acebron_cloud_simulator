@@ -1,9 +1,14 @@
 package simulacion;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FogNode {
     private final CloudServer CLOUDSERVER;
     private int alertCount = 0;
     private int contador;
+    private List<SensorData> dataListFog = new ArrayList<>();
+    private static final int N_MAX_DATOS_GUARDADOS = 5;
 
     public FogNode (CloudServer cloudServer, int contador){
         this.CLOUDSERVER = cloudServer;
@@ -17,11 +22,24 @@ public class FogNode {
         if(data.getTEMPERATURE()>30){
             alertCount++;
             System.out.println("[FOG] ALERTA: temperatura alta");
-        } else
+        } else{
             System.out.println("[FOG] Temperatura normal");
+        }
+            dataListFog.add(data);
+            enviar();
+    }
 
-            CLOUDSERVER.saveData(data);
+    private void enviar() {
+        if(dataListFog.size() == N_MAX_DATOS_GUARDADOS){
+            CLOUDSERVER.saveData(dataListFog);
+            dataListFog.clear();
+        }
     } 
+        public void finish() {
+        if (!dataListFog.isEmpty()) {
+            enviar();
+        }
+    }
 
 
     public int getAlertCount(){
@@ -30,6 +48,9 @@ public class FogNode {
 
     public int getContador() {
         return contador;
+    }
+    public List<SensorData> getDataListFog() {
+        return dataListFog;
     }
 
 }
